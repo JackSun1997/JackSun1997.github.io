@@ -37,19 +37,26 @@
         // After source_info is loaded, then load app.js
       }
     });
-
   });
 
-  var locustag = null;
-  $.ajax({
-    'async': false,
-    'global': false,
-    'url': "https://pankb.blob.core.windows.net/data/PanKB/main/hotmap/dist/locustag.json",
-    'dataType': "json",
-    'success': function (data) {
-      locustag = data;
-      window.locustag = locustag; // Store locustag globally
-    }
+  document.addEventListener('DOMContentLoaded', function() {
+
+    window.linkText = localStorage.getItem('linkText'); // Retrieve the link text from localStorage
+    console.log(window.linkText); // Log the link text for testing purposes
+
+    var locustag = null;
+    $.ajax({
+      'async': false,
+      'global': false,
+      'url': "https://pankb.blob.core.windows.net/data/PanKB/Interactive_figures/data/" + window.linkText + "/locustag_target.json",
+      'dataType': "json",
+      'success': function (data) {
+        locustag = data;
+        window.locustag = locustag; // Store locustag globally
+
+        // After source_info is loaded, then load app.js
+      }
+    });
   });
 
 </script>
