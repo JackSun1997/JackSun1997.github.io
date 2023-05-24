@@ -16,6 +16,7 @@
   <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
+<<<<<<< HEAD
 
     .row {
       margin-left: 0;
@@ -41,6 +42,10 @@
     .border-container {
       border: 2px solid rgba(0, 0, 0, 0.09);  /* Change the color as needed */
       /* Add other styles as needed */
+=======
+    body {
+      padding-top: 60px; /* Height of your navbar */
+>>>>>>> origin/main
     }
 
     .navbar_fixed {
@@ -84,6 +89,7 @@
       display: block;
     }
 
+<<<<<<< HEAD
     /* Responsive iframe styles */
     .responsive-iframe {
       position: relative;
@@ -101,6 +107,14 @@
 
   </style>
 
+=======
+  </style>
+
+
+
+
+
+>>>>>>> origin/main
   <!-- Custom styles for this template -->
   <link href="navbar-top-fixed.css" rel="stylesheet">
   <link href="./bootstrap-5.0.2-examples/sidebars/sidebars.css" rel="stylesheet">
@@ -136,27 +150,45 @@
 </nav>
 
 
+<<<<<<< HEAD
 <div class="vh-100">
   <div class="row">
     <div class="col-2 container-fluid">
+=======
+<div class = "container-fluid vh-100">
+  <div class="row">
+    <div class="col-2">
+>>>>>>> origin/main
       <div class="flex-shrink-0 p-3 bg-light navbar_fixed">
         <a href="./Pangenome_analyses_overview.html" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-center">
           <span class="fs-5 fw-semibold">Pangenome analyses</span>
         </a>
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
+<<<<<<< HEAD
             <a href="./Pangenome_analyses_overview.html" class="btn  align-items-center " role="button">
+=======
+            <a href = "./Pangenome_analyses_overview.html" class="btn  align-items-center " role = "button">
+>>>>>>> origin/main
               Overview
             </a>
           </li>
           <li class="mb-1">
+<<<<<<< HEAD
             <a href="./gene_annotation.html" class="btn  align-items-center " role="button">
+=======
+            <a href = "./gene_annotation.html" class="btn  align-items-center " role = "button">
+>>>>>>> origin/main
               Gene annotation
             </a>
           </li>
 
           <li class="mb-1 ">
+<<<<<<< HEAD
             <a href="./Pangenome_analyses_phylogetic_tree.html" class="btn  align-items-center" role="button">
+=======
+            <a href = "./Pangenome_analyses_phylogetic_tree.html" class="btn  align-items-center" role ="button">
+>>>>>>> origin/main
               Phylogenetic tree
             </a>
           </li>
@@ -180,6 +212,7 @@
 
     <div class="col-10">
       <div class="container-fluid">
+<<<<<<< HEAD
         <div class="row border-container">
           <h2 class="text-center">Heap's law and Gene frequency</h2>
           <div class="col-12 col-md-6">
@@ -196,17 +229,51 @@
             </div>
             <div class="figure-container_below responsive-iframe">
               <iframe src="./Interactive_figures/gene_freq/cumulative_freq.html" style="border:0;" title="Cumulative Frequency"></iframe>
+=======
+        <div class="row">
+          <h2 class = text-center> Heap's law and Gene frequency </h2>
+          <div class="col-6">
+            <div class="row h-50">
+              <div class="col-12 d-flex justify-content-center align-items-center">
+                <img src="https://pankb.blob.core.windows.net/data/PanKB/Interactive_figures/data/Lactiplantibacillus_plantarum/heaps_law.svg" class="img-fluid w-100 h-100" style="object-fit: cover;" alt = "Gene distribution"></img>
+              </div>
+            </div>
+            <div class="row h-50">
+              <div class="col-12 d-flex justify-content-center align-items-center">
+                <iframe src="./Interactive_figures/pie/pie.html" name="Pie chart" class="w-100 h-100" style="border:0;"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row h-50">
+              <div class="col-12 d-flex justify-content-center align-items-center">
+                <img src="https://pankb.blob.core.windows.net/data/PanKB/Interactive_figures/data/Lactiplantibacillus_plantarum/gene_frequency.svg" class="img-fluid w-100 h-100" style="object-fit: cover;" alt = "Gene distribution"></img>
+              </div>
+            </div>
+            <div class="row h-50">
+              <div class="col-12 d-flex justify-content-center align-items-center">
+                <img src="https://pankb.blob.core.windows.net/data/PanKB/Interactive_figures/data/Lactiplantibacillus_plantarum/gene_distribution.svg" class="img-fluid w-100 h-100" style="object-fit: cover;" alt = "Gene distribution"></img>
+              </div>
+>>>>>>> origin/main
             </div>
           </div>
         </div>
         <br>
         <br>
         <br>
+<<<<<<< HEAD
         <div class="row border-container" style="height: 800px;">
           <div class="col-12" style="height: 700px;">
             <h2 class="text-center">Presence/absence matrix</h2>
             <br>
             <div class="d-flex justify-content-center align-items-center h-100" >
+=======
+        <div class="row" style="height: 700px;">
+          <div class="col-12">
+            <h2 class = text-center> Presence/absence matrix</h2>
+            <br>
+            <div class="d-flex justify-content-center align-items-center h-100">
+>>>>>>> origin/main
               <iframe src="./hotmap/demo/index.html" name="heatmap" class="w-100 h-100" style="border:0;"></iframe>
             </div>
           </div>
@@ -217,6 +284,7 @@
         <br>
         <br>
         <br>
+<<<<<<< HEAD
         <div class="row border-container" style="height: 950px;">
           <div class="col-12" style="height: 700px;">
             <h2 class="text-center">Intra-species analyses(naive) of microbial genetic diversity</h2>
@@ -225,6 +293,16 @@
               Genes (column) in the heatmap were selected by the following criteria: for each gene, calculating its frequency in each
               phylogeny group. If one gene's frequency is > 70% in one phylogeny group but < 30% in all other phylogeny groups, it will be selected.
               The column (gene) of this heatmap is sorted by the phylogeny group: genes have frequency > 70% in phylogeny group A but < 30% in all others,
+=======
+        <div class="row" style="height: 700px;">
+          <div class="col-12">
+            <h2 class = text-center> Intra-species analyses(naive) of microbial genetic diversity</h2>
+            <br>
+            <p style="text-align:justify; font-size: 18px;">The below heatmap shows simple intra-species analyses (there might be more complicated analyses coming out later).
+              Genes(column) in the heatmap were selected by the following criteria: for each gene, calculating its frequency in each
+              phylogeny group. If one gene's frequency is> 70% in one phylogeny group but < 30% in all other phylogeny groups, it will be selected.
+              The column(gene) of this heatmap is sorted by the phylogeny group: genes have frequency > 70% in phylogeny group A but < 30% in all others,
+>>>>>>> origin/main
               genes have frequency > 70% in phylogeny group B but < 30% in all others, etc.
             </p>
             <div class="d-flex justify-content-center align-items-center h-100">
@@ -238,10 +316,35 @@
       </div>
 
     </div>
+<<<<<<< HEAD
   </div>
 </div>
 
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
 
+=======
+
+
+    <!--
+           <div class = "align-items-center justify-content-center">
+             <iframe src="./hotmap/demo/index.html" name="heatmap" width="1300" height="800" style="border:0;"></iframe>
+           </div>
+           <br>
+           <br>
+           <div class = "align-items-center justify-content-center">
+             <iframe src="./hotmap/demo/target_gene.html" name="heatmap" width="1300" height="800" style="border:0;"></iframe>
+           </div>
+      -->
+
+
+ </div>
+</div>>
+
+
+
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+
+
+>>>>>>> origin/main
 </body>
 </html>

@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function () {
     Highcharts.setOptions({
         colors: ['rgba(128, 0, 128, 0.8)',
             'rgba(255, 165, 0, 0.8)',
             'rgba(0, 128, 0, 0.8)'] // Update with the desired colors
+=======
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    Highcharts.setOptions({
+        colors: ['#cc00ff', '#ff9900', '#99ffcc']
+>>>>>>> origin/main
     });
 
     const chart = Highcharts.chart('container', {
@@ -11,6 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie',
+<<<<<<< HEAD
+=======
+            height:310
+>>>>>>> origin/main
         },
         credits: {
             enabled: false
@@ -33,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
+<<<<<<< HEAD
                     format: '{point.name}: {point.y:.0f}',
                     connectorColor: 'silver',
                     style: {
@@ -42,6 +55,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         color: '#000000'
                     }
                 }
+=======
+                    format: '<b>{point.name}</b>: {point.y:.0f}',
+                    connectorColor: 'silver'
+                }
+
+>>>>>>> origin/main
             }
         },
         series: [{
@@ -53,4 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         }]
     });
+<<<<<<< HEAD
 });
+=======
+})
+>>>>>>> origin/main
