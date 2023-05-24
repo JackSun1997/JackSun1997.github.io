@@ -1,8 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-
     Highcharts.setOptions({
-        colors: ['#cc00ff', '#ff9900', '#99ffcc']
+        colors: ['rgba(128, 0, 128, 0.8)',
+            'rgba(255, 165, 0, 0.8)',
+            'rgba(0, 128, 0, 0.8)'] // Update with the desired colors
     });
 
     const chart = Highcharts.chart('container', {
@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie',
-            height:310
         },
         credits: {
             enabled: false
@@ -34,10 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.y:.0f}',
-                    connectorColor: 'silver'
+                    format: '{point.name}: {point.y:.0f}',
+                    connectorColor: 'silver',
+                    style: {
+                        fontSize: '14px', // Adjust the font size as needed
+                        fontFamily: 'Arial, sans-serif', // Adjust the font family as needed
+                        fontWeight: 'normal', // Set font weight to normal
+                        color: '#000000'
+                    }
                 }
-
             }
         },
         series: [{
@@ -49,4 +53,4 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         }]
     });
-})
+});

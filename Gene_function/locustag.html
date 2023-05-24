@@ -27,11 +27,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* make it full height */
             padding-top:50px;
             padding-bottom:80px;
-            padding-right:60px;
-            padding-left:0px;
         }
 
         /* Add this to make the DataTable pagination centered */
@@ -102,7 +99,7 @@
 <h2 class = 'text-center'>This page is to show more details about genes in pangenome analyses. Will add more later...</h2>
 
 <div class = "table_padding overflow-auto">
-    <div style="width:70%;">
+    <div style="width:80%;">
         <table id="example" class="table table-hover overflow-auto" style="width:100%; table-layout: fixed;">
             <thead>
             <tr>
@@ -151,7 +148,7 @@
                     {
                         targets: [1, 2, 3], // Apply the function to the inference, translation, and product columns
                         render: function(data, type, row) {
-                            if (type === 'display' && data.length > 20) {
+                            if (type === 'display' && data.length > 30) {
                                 return '<span class="truncated" data-toggle="tooltip" data-fulltext="' + data + '" title="' + data + '">' + data.substr(0, 20) + '...</span>';
                             } else {
                                 return data;

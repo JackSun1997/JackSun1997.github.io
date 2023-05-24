@@ -19921,9 +19921,10 @@
                             alert("Selected ".concat(t.length, " cell(s)\n\n") + JSON.stringify(t, null, 4).slice(0, 1e4))
                         },
                         onClick: function(t) {
-                            var e = t.rowMeta;
-                            var url = './on_click.html';
-                            window.open(url, "popup", "toolbar=0, location=0, directories=0, status=0, scrollbars=0, resizable=0, copyhistory=0, width=500, height=550,screenX=200,screenY=200");
+                            const genome_id = t.colName;
+                            const gene_id = t.rowName;
+                            const url = './on_click.html?genome_id=' + encodeURIComponent(genome_id) + '&' +'gene_id=' + encodeURIComponent(gene_id);
+                            window.open(url, '_blank');
                         },
                     })
                 }
