@@ -90,11 +90,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     )
 
-<<<<<<< HEAD
 })
-=======
-
-
-})
-
->>>>>>> origin/main
