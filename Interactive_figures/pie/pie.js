@@ -60,28 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         }]
     });
-
-
-    // Listen to the window resize event
-    window.addEventListener('resize', function () {
-        let newSize;
-
-        if (window.innerWidth < 500) {
-            newSize = '50%';  // smaller size for small screens
-        } else if (window.innerWidth < 800) {
-            // Gradual increase in size for intermediate viewport sizes
-            newSize = `${70 + (window.innerWidth - 500) / 3}%`; // adjust numbers as per your need
-        } else {
-            newSize = '70%';  // maximum size for large screens
-        }
-
-        chart.update({
-            plotOptions: {
-                pie: {
-                    size: newSize
-                }
-            }
-        });
-    });
+    
 
 });
