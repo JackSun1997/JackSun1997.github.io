@@ -6,17 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const chart = Highcharts.chart('container', {
-
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie',
-            spacingBottom: 15,
-            spacingTop: 15,
-            spacingLeft: 15,
-            spacingRight: 15,
-            center: ['50%', '50%']  // Here
         },
         credits: {
             enabled: false
@@ -37,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
-                size: '60%',
                 dataLabels: {
                     enabled: true,
                     format: '{point.name}: {point.y:.0f}',
@@ -60,6 +53,4 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         }]
     });
-    
-
 });
