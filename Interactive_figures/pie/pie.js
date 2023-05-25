@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         plotOptions: {
             pie: {
                 allowPointSelect: true,
+                size: '60%', // Set the initial size to 100%
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,

@@ -1,7 +1,7 @@
 .highcharts-figure,
 .highcharts-data-table table {
     min-width: 320px;
-    max-width: 660px;
+    max-width: 600px;
     margin: 1em auto;
 }
 
