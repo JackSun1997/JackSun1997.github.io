@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
-    #plot {
-      width: 100%;
+    html, body, #plot {
       height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -120,7 +123,7 @@
                   }
                 },
                 yaxis: {
-                  title: 'Frequency',
+                  title: 'Gene frequency',
                   showgrid: false,  // Remove y-axis grid lines
                   showline: true,  // Show y-axis line
                   range: [0, max_frequency_count * 1.1],

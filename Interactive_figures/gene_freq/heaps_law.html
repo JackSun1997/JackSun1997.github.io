@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-        #plot {
-            width: 100%;
+        html, body, #plot {
             height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -57,10 +60,6 @@
                     name: 'Pangenome'
                 };
 
-                // Get window width and height
-                var iframeWidth = window.innerWidth;
-                var iframeHeight = window.innerHeight;
-
                 // Layout
                 var layout = {
                     width: document.getElementById('plot').clientWidth,
@@ -98,7 +97,7 @@
                     legend: {
                         x: 0.05,
                         xanchor: 'left',
-                        y: 1.1,
+                        y: 1.15,
                         yanchor: 'top'
                     }
                 };
@@ -126,11 +125,27 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+
+        // Function to resize plot
+        function resizePlot() {
+            const update = {
+                width: document.getElementById('plot').clientWidth,
+                height: document.getElementById('plot').clientHeight,
+            };
+            Plotly.relayout('plot', update);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         loadJSONAndCreatePlot();
+
+        // Resize plot after a delay to allow iframe to finish loading
+        setTimeout(resizePlot, 100); // Adjust delay as needed
     });
+
+    // Resize plot when window is resized
+    window.onresize = resizePlot;
+
 </script>
 
 <div id="plot"></div>

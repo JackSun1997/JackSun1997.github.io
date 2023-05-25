@@ -6,11 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const chart = Highcharts.chart('container', {
+
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie',
+            spacingBottom: 15,
+            spacingTop: 15,
+            spacingLeft: 15,
+            spacingRight: 15,
+            center: ['50%', '50%']  // Here
         },
         credits: {
             enabled: false
@@ -31,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
+                size: '60%', // Set the initial size to 100%
                 dataLabels: {
                     enabled: true,
                     format: '{point.name}: {point.y:.0f}',
@@ -53,4 +60,28 @@ document.addEventListener('DOMContentLoaded', function () {
             ]
         }]
     });
+
+
+    // Listen to the window resize event
+    window.addEventListener('resize', function () {
+        let newSize;
+
+        if (window.innerWidth < 500) {
+            newSize = '50%';  // smaller size for small screens
+        } else if (window.innerWidth < 800) {
+            // Gradual increase in size for intermediate viewport sizes
+            newSize = `${70 + (window.innerWidth - 500) / 3}%`; // adjust numbers as per your need
+        } else {
+            newSize = '80%';  // bigger size for large screens
+        }
+
+        chart.update({
+            plotOptions: {
+                pie: {
+                    size: newSize
+                }
+            }
+        });
+    });
+
 });

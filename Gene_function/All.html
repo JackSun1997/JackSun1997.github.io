@@ -43,7 +43,6 @@
       padding-bottom:80px;
       padding-right:60px;
       padding-left:0px;
-
     }
 
     tr, th{
@@ -55,7 +54,6 @@
     td {
       font-size: 15px;
       text-align: center !important;
-      vertical-align: middle !important;
       padding: 10px;
       width: 14.2%;
     }
@@ -64,20 +62,28 @@
       display: none;
     }
 
-    .dataTables_wrapper thead th {
+    thead th {
+      height: 100px;
+      position: relative;
+      vertical-align: top;
+      padding-top: 0px;
       text-align: center;
-      vertical-align: middle;
-      padding: 5px;
+      padding: 0px;
+    }
+
+    thead th input {
+      position: absolute;
+      bottom: 10px;
+      width: 50%;
+      margin: auto;
+      left: 0;
+      right: 0;
     }
 
     .dataTables_wrapper tbody td {
       text-align: center;
       vertical-align: middle;
       padding: 10px;
-    }
-
-    .dataTables_wrapper .dataTables_filter input {
-      margin-right: 20px;
     }
 
 
@@ -89,8 +95,8 @@
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-example">
 
-<div class = "table_padding overflow-auto" style= "height: 550px;">
-  <table id="example" class="table table-hover overflow-auto" style="width:100%; table-layout: fixed;">
+<div class = "table_padding">
+  <table id="example" class="table table-hover" style="width:100%; table-layout: fixed;">
     <thead>
     <tr>
       <th class="text-center align-middle">Gene</th>
@@ -103,15 +109,11 @@
       <th class="text-center align-middle">Gene frequency</th>
     </tr>
     </thead>
-
     <tbody class = "text-center align-middle" id = "tbody">
-
     </tbody>
-
   </table>
-
-
 </div>
+
 
 <!-- Datatable -->
 
@@ -160,7 +162,7 @@
             var columnHeader = $(th);
             var columnIndex = index;
 
-            var searchInput = $('<input type="text" class="form-control form-control-sm" placeholder="Search" style="margin-top: 15px;" />')
+            var searchInput = $('<input type="text" class="form-control form-control-sm" placeholder="Search" style="width: 80%;" />')
                     .on('keyup change clear', function() {
                       api.column(columnIndex).search(this.value).draw();
                     });
