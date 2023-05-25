@@ -3,6 +3,8 @@ html, body, #container {
     height: 100%;
     overflow: hidden;
     padding-top: 3%;
+    min-width: 320px;
+    max-width: 660px;
 }
 
 .highcharts-figure,
