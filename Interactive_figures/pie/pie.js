@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
-                size: '60%', // Set the initial size to 100%
+                size: '60%',
                 dataLabels: {
                     enabled: true,
                     format: '{point.name}: {point.y:.0f}',
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Gradual increase in size for intermediate viewport sizes
             newSize = `${70 + (window.innerWidth - 500) / 3}%`; // adjust numbers as per your need
         } else {
-            newSize = '80%';  // bigger size for large screens
+            newSize = '70%';  // maximum size for large screens
         }
 
         chart.update({
