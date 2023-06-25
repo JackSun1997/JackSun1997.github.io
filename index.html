@@ -94,7 +94,7 @@
         <object data="https://pankb.blob.core.windows.net/data/PanKB/svg/bacteria.svg" width="150" height="150"> </object>
       </div>
       <br>
-      <h3 class = "center"> 1 Species </h3>
+      <h3 class="center" id="speciesCount"></h3>
     </div>
 
     <div class="feature col">
@@ -102,7 +102,7 @@
         <object data="https://pankb.blob.core.windows.net/data/PanKB/svg/genome.svg" width="150" height="150"> </object>
       </div>
       <br>
-      <h3 class = "center"> 611 Genomes </h3>
+      <h3 class = "center" id = 'genomeCount'></h3>
     </div>
 
 
@@ -131,6 +131,18 @@
 
 
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species_list.json')
+          .then(response => response.json())
+          .then(data => {
+            const speciesCount = data.Species.length;
+            const genomeCount = data.N_of_genome.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            document.getElementById("speciesCount").textContent = speciesCount + " Species";
+            document.getElementById("genomeCount").textContent = genomeCount + " Genome";
+          })
+
+</script>
 
 
 </body>
