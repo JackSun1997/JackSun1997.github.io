@@ -22,16 +22,28 @@
       margin-right: 0;
     }
 
+
     .figure-container_above {
       height: 450px; /* This is 50% of the viewport height */
+      padding-bottom: 56.25%;
       margin-bottom: 0;
       margin-top: 0;
     }
 
     .figure-container_below {
       height: 450px; /* This is 50% of the viewport height */
+      padding-bottom: 56.25%;
       margin-bottom: 0;
       margin-top: 0;
+    }
+
+    .figure-container_above iframe,
+    .figure-container_below iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .border-container {
@@ -39,9 +51,36 @@
       /* Add other styles as needed */
     }
 
+    .col-2 {
+      flex: 0 0 12.5% !important;
+      max-width: 12.5% !important;
+      padding:0;
+    }
+
+    .col-10 {
+      flex: 0 0 87.5% !important;
+      max-width: 87.5% !important;
+
+    }
+
     .navbar_fixed {
       position: fixed;
       height: 100%;
+      width: 12.5% !important;
+    }
+
+    .navbar_fixed .btn {
+      border-color: transparent;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: #fff;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:focus,
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: #fff;
+      background-color: transparent !important;
     }
 
     .services-section img {
@@ -72,7 +111,7 @@
     }
 
     .row-spacing {
-      margin-bottom: 0vh; /* Adjust this value */
+      margin-bottom: 2rem;
     }
 
     /* Remove spacing from Bootstrap columns */
@@ -80,12 +119,21 @@
       margin-bottom: 0; /* Change this value */
     }
 
+    .link_not_activate{
+      color: grey !important;
+    }
+
+
+
 
   </style>
 
   <!-- Custom styles for this template -->
   <link href="navbar-top-fixed.css" rel="stylesheet">
   <link href="./bootstrap-5.0.2-examples/sidebars/sidebars.css" rel="stylesheet">
+
+
+
 </head>
 <body>
 
@@ -98,16 +146,16 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link " aria-current="page" href="./About.html">About</a>
+          <a class="nav-link link_not_activate" href="./About.html">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./Species_list.html">Organism</a>
+          <a class="nav-link link_not_activate" href="./Species_list.html">Species</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="#">Download</a>
+          <a class="nav-link link_not_activate" href="#">Download</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Publications</a>
+          <a class="nav-link link_not_activate" href="#" tabindex="-1" aria-disabled="true">Publications</a>
         </li>
       </ul>
     </div>
@@ -116,25 +164,24 @@
 
 <div class="vh-100">
   <div class="row">
-    <div class="col-2 container-fluid">
+    <div class="col-2">
       <div class="flex-shrink-0 p-3 bg-light navbar_fixed">
-        <a href="./Pangenome_analyses_overview.html" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-center">
+        <a id = 'Pangenome_analyses' class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-center">
           <span class="fs-5 fw-semibold">Pangenome analyses</span>
         </a>
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-            <a href="./Pangenome_analyses_overview.html" class="btn  align-items-center " role="button">
+            <a id = 'Overview' class="btn  align-items-center " role="button">
               Overview
             </a>
           </li>
           <li class="mb-1">
-            <a href="./gene_annotation.html" class="btn  align-items-center " role="button">
+            <a id = 'Gene_annotation' class="btn  align-items-center " role="button">
               Gene annotation
             </a>
           </li>
-
           <li class="mb-1 ">
-            <a href="./Pangenome_analyses_phylogetic_tree.html" class="btn  align-items-center" role="button">
+            <a id = 'Phylogenetic_tree'  class="btn  align-items-center" role="button">
               Phylogenetic tree
             </a>
           </li>
@@ -164,18 +211,18 @@
           <h2 class="text-center">Heap's law and gene frequency</h2>
           <div class="col-12 col-md-6">
             <div class="figure-container_above responsive-iframe">
-              <iframe src="./Interactive_figures/gene_freq/heaps_law.html" style="border:0;" title="Heaps Law"></iframe>
+              <iframe style="border:0;" id="Heaps_Law"></iframe>
             </div>
             <div class="figure-container_below responsive-iframe">
-              <iframe src="./Interactive_figures/pie/pie.html" name="Pie chart" style="border:0;"></iframe>
+              <iframe id = 'Barplot' name="Barplot" style="border:0;"></iframe>
             </div>
           </div>
           <div class="col-12 col-md-6">
-            <div class="figure-container_above responsive-iframe">
-              <iframe src="./Interactive_figures/gene_freq/gene_freq.html" style="border:0;" title="Gene frequency"></iframe>
-            </div>
             <div class="figure-container_below responsive-iframe">
-              <iframe src="./Interactive_figures/gene_freq/cumulative_freq.html" style="border:0;" title="Cumulative Frequency"></iframe>
+              <iframe style="border:0;" id="Cumulative_Frequency"></iframe>
+            </div>
+            <div class="figure-container_above responsive-iframe">
+              <iframe style="border:0;" id="Gene_frequency"></iframe>
             </div>
           </div>
         </div>
@@ -187,7 +234,7 @@
             <h2 class="text-center">Presence/absence matrix</h2>
             <br>
             <div class="d-flex justify-content-center align-items-center h-100" >
-              <iframe src="./hotmap/demo/index.html" name="heatmap" class="w-100 h-100" style="border:0;"></iframe>
+              <iframe id="heatmap_all" class="w-100 h-100" style="border:0;"></iframe>
             </div>
           </div>
         </div>
@@ -208,7 +255,7 @@
               genes have frequency > 70% in phylogeny group B but < 30% in all others, etc.
             </p>
             <div class="d-flex justify-content-center align-items-center h-100">
-              <iframe src="./hotmap/demo/target_gene.html" name="heatmap" class="w-100 h-100" style="border:0;"></iframe>
+              <iframe id="heatmap_target" src="Interactive_figures/hotmap/demo/target_gene.html" class="w-100 h-100" style="border:0;"></iframe>
             </div>
           </div>
         </div>
@@ -229,6 +276,48 @@
     });
   }
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const species = urlParams.get('species');
+
+    const Pangenome_analyses = document.getElementById('Pangenome_analyses');
+    Pangenome_analyses.href = './Pangenome_analyses_overview.html?species=' + species;
+
+    const Overview = document.getElementById('Overview');
+    Overview.href = './Pangenome_analyses_overview.html?species=' + species;
+    //
+    const Gene_annotation = document.getElementById('Gene_annotation');
+    Gene_annotation.href = './Pangenome_analyses_gene_annotation.html?species=' + species;
+
+    const Phylogenetic_tree = document.getElementById('Phylogenetic_tree');
+    Phylogenetic_tree.href = './Pangenome_analyses_phylogetic_tree.html?species=' + species;
+
+    // set src for different elements
+    const Heaps_Law = document.getElementById('Heaps_Law');
+    Heaps_Law.src = './Interactive_figures/gene_freq/heaps_law.html?species=' + species;
+
+    const Barplot = document.getElementById('Barplot');
+    Barplot.src = './Interactive_figures/barplot/barplot.html?species=' + species;
+
+    const Gene_frequency = document.getElementById('Gene_frequency');
+    Gene_frequency.src = './Interactive_figures/gene_freq/gene_freq.html?species=' + species;
+
+    const Cumulative_Frequency = document.getElementById('Cumulative_Frequency');
+    Cumulative_Frequency.src = './Interactive_figures/gene_freq/cumulative_freq.html?species=' + species;
+
+    const heatmap_all = document.getElementById('heatmap_all');
+    heatmap_all.src = './Interactive_figures/hotmap/demo/index.html?species=' + species;
+
+    const heatmap_target = document.getElementById('heatmap_target');
+    heatmap_target.src = './Interactive_figures/hotmap/demo/target_gene.html?species=' + species;
+
+  });
+</script>
+
+
+
 
 </body>
 </html>

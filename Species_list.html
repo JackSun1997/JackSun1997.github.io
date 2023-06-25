@@ -18,41 +18,17 @@
   <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"> </script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"> </script>
 
-  <script>
-    $(document).ready(function () {
-      $('#example').DataTable();
-    });
-  </script>
+
 
   <!-- Bootstrap core CSS -->
   <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
 
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
       }
-    }
-
-    .link_button{
-      text-align: center;
-      padding: 15px 32px;
-      font-size: 24px;
-    }
-
-    .scrollspy-example {
-      position: relative;
-      height: 900px;
-      margin-top: .6rem;
-      overflow: auto;
     }
 
     .table_padding{
@@ -67,9 +43,6 @@
       font-size: 18px;
     }
 
-    .datalink{
-      text-align: center;
-    }
   </style>
 
 
@@ -95,7 +68,7 @@
           <a class="nav-link " aria-current="page" href="./About.html">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./Species_list.html">Organism</a>
+          <a class="nav-link active" href="./Species_list.html">Species</a>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="#">Download</a>
@@ -115,8 +88,8 @@
 
 <!-- Datatable -->
 
-<div class = "table_padding">
-  <table id="example" class="table table-hover" style="width:100%">
+<div class="table_padding">
+  <table id="species_list" class="table table-hover" style="width:100%">
     <thead>
     <tr>
       <th class="text-center align-middle">Species</th>
@@ -125,44 +98,68 @@
       <th class="text-center align-middle">Pangenome analyses</th>
     </tr>
     </thead>
-    <tbody>
-
-    <tr>
-      <td class = "text-center align-middle ">Lactiplantibacillus plantarum</td>
-      <td class = "text-center align-middle">Open</td>
-      <td class = "text-center align-middle">611</td>
-      <td class = "text-center align-middle"><a class = 'datalink' href="./Pangenome_analyses_overview.html">Lactiplantibacillus_plantarum</a></td>
-    </tr>
-
-    <!--
-        <tr>
-          <td class = "text-center align-middle">Test</td>
-          <td class = "text-center align-middle">#</td>
-          <td class = "text-center align-middle">#</td>
-          <td class = "text-center align-middle"><a class = 'datalink' href="./Pangenome_analyses_overview.html">Test</a></td>
-        </tr>
-    -->
-
-        </tbody>
-
-      </table>
-    </div>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
 
     <!-- Datatable -->
+<div id="loadingModal" class="modal" tabindex="-1" role="dialog" style="display:none; background-color: rgba(0,0,0,0.75);">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Loading, please wait...</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const links = document.getElementsByClassName('datalink');
+  // Load the JSON file
+  fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species_list.json')
+          .then(response => response.json())
+          .then(data => {
+            const tableBody = document.getElementById('table-body');
 
-    for (const link of links) {
-      link.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the link from navigating immediately
-        const linkText = event.target.textContent;
-        localStorage.setItem('linkText', linkText); // Save the link text in localStorage
-        window.location.href = link.href; // Navigate to the link's destination
-      });
-    }
+            // Iterate over each species
+            data.Species.forEach((species, index) => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+          <td class="text-center align-middle">${species}</td>
+          <td class="text-center align-middle">${data.Openness[index]}</td>
+          <td class="text-center align-middle">${data.N_of_genome[index]}</td>
+          <td class="text-center align-middle">
+            <a id="${data.Pangenome_analyses[index]}" href="#" onclick="handleLinkClick(event, '${data.Pangenome_analyses[index]}')">${data.Pangenome_analyses[index]}</a>
+          </td>
+        `;
+              tableBody.appendChild(row);
+            });
+
+            // Initialize DataTable
+            $('#species_list').DataTable();
+          })
+          .catch(error => console.error(error));
+
+  function handleLinkClick(e, species) {
+    // Show the loading modal
+    document.getElementById('loadingModal').style.display = 'block';
+
+    // Navigate to the new page after a delay
+    setTimeout(function() {
+      window.location.href = `./Pangenome_analyses_overview.html?species=${species}`;
+    }, 2000); // Change this delay to the time it takes your page to load
+
+    // Prevent the default link behavior
+    e.preventDefault();
+  }
+
+  window.addEventListener('pageshow', function(event) {
+    // Hide the loading modal
+    document.getElementById('loadingModal').style.display = 'none';
   });
+</script>
+
+
+
 </script>
 
 </body>

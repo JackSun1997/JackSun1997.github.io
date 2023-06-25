@@ -96,13 +96,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      /* max-width: 0; */ /* Remove or modify this line */
-    }
-
-    .expanded-row td {
-      white-space: normal;
-      word-wrap: break-word;
-      max-width: none; /* Add this line to override max-width */
+      max-width: 0;
     }
 
     tbody td {
@@ -149,6 +143,7 @@
     .link_not_activate{
       color: grey !important;
     }
+
 
 
 
@@ -237,46 +232,46 @@
     <div class="col-10 center-container">
       <h2 class="text-center">Gene annotation table</h2>
       <div class="table_padding">
-        <div class="table-responsive">
-          <table id="example" class="table table-hover" style="table-layout: fixed;">
-            <thead>
-            <tr>
-              <th class="text-center">Gene</th>
-              <th class="text-center">Class</th>
-              <th class="text-center">COG category</th>
-              <th class="text-center">COG name</th>
-              <th class="text-center">Description</th>
-              <th class="text-center">Annotation</th>
-              <th class="text-center">PFAMs</th>
-              <th class="text-center">Frequency</th>
-            </tr>
-            </thead>
-            <tbody class="text-center align-middle" id="tbody">
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table id="example" class="table table-hover" style="table-layout: fixed;">
+              <thead>
+              <tr>
+                <th class="text-center">Gene</th>
+                <th class="text-center">Class</th>
+                <th class="text-center">COG category</th>
+                <th class="text-center">COG name</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Annotation</th>
+                <th class="text-center">PFAMs</th>
+                <th class="text-center">Frequency</th>
+              </tr>
+              </thead>
+              <tbody class="text-center align-middle" id="tbody">
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
 
       <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
       <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
       <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
       <script>
-        document.addEventListener('DOMContentLoaded', async function() {
+        $(document).ready(async function () {
           const urlParams = new URLSearchParams(window.location.search);
           const species = urlParams.get('species');
-          console.log()
 
           try {
             const data = await $.ajax({
-              'url': 'https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/All.json',
-              'dataType': 'json'
+              url: 'https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/All.json',
+              dataType: 'json'
             });
 
-            var geneData = data; // Convert the data object to an array for DataTables
+            var Gene = data;
 
             let table = $('#example').DataTable({
-              data: geneData,
+              destroy: true,
+              data: Gene,
               columns: [
                 {
                   data: '0',
@@ -284,29 +279,19 @@
                     return '<a href="../Gene_function/locustag.html?species=' + species + '&gene=' + encodeURIComponent(data) + '" target="_blank">' + data + '</a>';
                   }
                 },
-                { data: 7 },
-                { data: 1 },
-                { data: 2 },
-                { data: 3 },
-                { data: 4 },
-                { data: 5 },
-                { data: 6 }
-              ],
-              columnDefs: [
-                {
-                  targets: [3,4,5,6], // Apply the function to the inference, translation, and product columns
-                  render: function(data, type, row) {
-                    if (type === 'display' && data.length > 30) {
-                      return '<span class="truncated" data-toggle="tooltip" data-fulltext="' + data + '" title="' + data + '">' + data.substr(0, 30) + '...</span>';
-                    } else {
-                      return data;
-                    }
-                  }
-                }
+                {data: '7'},
+                {data: '1'},
+                {data: '2'},
+                {data: '3'},
+                {data: '4'},
+                {data: '5'},
+                {data: '6'}
               ],
               language: {
-                emptyTable: 'Loading...'
+                loadingRecords: 'Loading...',
+                zeroRecords: 'test'
               },
+
               initComplete: function () {
                 var api = this.api();
 
@@ -325,34 +310,26 @@
 
                   $(searchInput).appendTo(columnHeader);
                 });
-              },
-              order: [],
-              bSort: true,
-              searching: true
+              }
             });
 
+            // Expand row on click
+            $('#example tbody').on('click', 'td', function () {
+              var cellText = $(this).text().trim();
+              var rowIndex = $(this).closest('tr').index();
+              var row = table.row(rowIndex);
+              if (row.child.isShown()) {
+                row.child.hide();
+                $(this).closest('tr').removeClass('expanded-row');
+              } else {
+                var expandedRowContent = '<td colspan="8" style="white-space: normal; word-wrap: break-word;">' + cellText + '</td>';
+                row.child(expandedRowContent).show();
+                $(this).closest('tr').addClass('expanded-row');
+              }
+            });
           } catch (error) {
             console.error('Error:', error);
           }
-
-          $('body').on('click', '.truncated', function() {
-            var fullText = $(this).attr('data-fulltext');
-            var truncatedText = $(this).text();
-            var cell = $(this).closest('td');
-
-            if (fullText !== truncatedText) { // check if fullText is not equal to truncatedText
-              $(this).text(fullText);
-              cell.addClass('expanded');
-            } else {
-              $(this).text(fullText.substr(0, 20) + '...');
-              cell.removeClass('expanded');
-            }
-
-            table.draw(false); // Redraw the DataTable to readjust the layout
-          });
-
-          $('[data-toggle="tooltip"]').tooltip();
-
         });
       </script>
     </div>
