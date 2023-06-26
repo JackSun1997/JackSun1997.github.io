@@ -123,6 +123,26 @@
       color: grey !important;
     }
 
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 1);  /* or any other color */
+      z-index: 9999;  /* or any large number to ensure overlay is on top */
+      display: flex;
+      justify-content: center;
+      align-items: center; /* center the text */
+      opacity: 1;
+      text
+    }
+
+
+    #main-content {
+      opacity: 0;
+      transition: opacity 4s ease-in-out;
+    }
 
 
 
@@ -136,6 +156,10 @@
 
 </head>
 <body>
+
+<div id="loading-overlay">
+  <p>Loading, please wait...</p>
+</div>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container-fluid">
@@ -269,15 +293,6 @@
 
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  if (window.innerWidth === 3024 && window.innerHeight === 1964) {
-    var iframes = document.querySelectorAll('iframe');
-    iframes.forEach(function(iframe) {
-      iframe.style.paddingBottom = '70%';
-    });
-  }
-</script>
-
-<script>
   document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const species = urlParams.get('species');
@@ -287,7 +302,7 @@
 
     const Overview = document.getElementById('Overview');
     Overview.href = './Pangenome_analyses_overview.html?species=' + species;
-    //
+
     const Gene_annotation = document.getElementById('Gene_annotation');
     Gene_annotation.href = './Pangenome_analyses_gene_annotation.html?species=' + species;
 
@@ -313,7 +328,16 @@
     const heatmap_target = document.getElementById('heatmap_target');
     heatmap_target.src = './Interactive_figures/hotmap/demo/target_gene.html?species=' + species;
 
+    // Remove overlay and show main content after 4 seconds
+    setTimeout(function() {
+      var overlay = document.getElementById('loading-overlay');
+      if(overlay) {
+        overlay.parentNode.removeChild(overlay);  // remove the overlay from DOM
+      }
+    }, 2000);  // 4000 milliseconds = 4 seconds
   });
+
+
 </script>
 
 

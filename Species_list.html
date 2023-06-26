@@ -140,16 +140,11 @@
           .catch(error => console.error(error));
 
   function handleLinkClick(e, species) {
-    // Show the loading modal
-    document.getElementById('loadingModal').style.display = 'block';
-
-    // Navigate to the new page after a delay
-    setTimeout(function() {
-      window.location.href = `./Pangenome_analyses_overview.html?species=${species}`;
-    }, 2000); // Change this delay to the time it takes your page to load
-
     // Prevent the default link behavior
     e.preventDefault();
+
+    // Navigate to the new page
+    window.location.href = `./Pangenome_analyses_overview.html?species=${species}`;
   }
 
   window.addEventListener('pageshow', function(event) {
@@ -157,6 +152,7 @@
     document.getElementById('loadingModal').style.display = 'none';
   });
 </script>
+
 
 
 
