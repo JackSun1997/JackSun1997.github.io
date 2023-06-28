@@ -39,6 +39,28 @@
       padding: 15px 32px;
       font-size: 24px;
     }
+
+    .responsive-iframe {
+      position: relative;
+      padding: 0 !important;
+      margin:0 !important;
+      width: 100% !important;
+      height: 45% !important;
+    }
+
+    .responsive-iframe iframe {
+      position: relative;
+      padding: 0 !important;
+      margin:0 !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* This adds a shadow effect */
+      transition: 0.3s; /* This adds a transition effect */
+      border-radius: 5px; /* This makes the corners round (5px round corner) */
+    }
   </style>
 
 
@@ -77,57 +99,76 @@
   </div>
 </nav>
 
-<div class="container px-4 py-5" id="featured-3">
-  <br>
-  <br>
+<div class = "container-fluid">
 
   <p class="display-2 center" >
     Pangenome Knowledge Base
   </p>
 
   <br>
+  <div class="row">
+    <div class="col-1">
 
-  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-
-    <div class="feature col">
-      <div class="feature-icon bg-white center">
-        <object data="https://pankb.blob.core.windows.net/data/PanKB/svg/bacteria.svg" width="150" height="150"> </object>
-      </div>
-      <br>
-      <h3 class="center" id="speciesCount"></h3>
     </div>
 
-    <div class="feature col">
-      <div class="feature-icon bg-white center">
-        <object data="https://pankb.blob.core.windows.net/data/PanKB/svg/genome.svg" width="150" height="150"> </object>
+    <div class="col-10">
+      <div class="card"> <!-- This is the wrapper -->
+        <div class="card-body"> <!-- The card-body class adds padding around your content -->
+          <div class="row" style="height:70vh">
+            <div class="responsive-iframe" style="margin-top: 0;">
+              <iframe src='./Interactive_figures/barplot/dimension.html'></iframe>
+            </div>
+
+            <div class="col-12">
+              <hr style="width:80%; border: 0.5px solid gray; margin: 20px auto;">
+            </div>
+
+            <div class="responsive-iframe" style="margin-top: 0;">
+              <iframe src='./Interactive_figures/gene_freq/genome_alpha.html'></iframe>
+            </div>
+          </div>
+        </div>
       </div>
-      <br>
-      <h3 class = "center" id = 'genomeCount'></h3>
     </div>
 
+    <div class="col-1">
 
-    <div class="feature col">
-      <div class="feature-icon bg-white center">
-        <object data='https://pankb.blob.core.windows.net/data/PanKB/svg/analysis.svg' width="150" height="150"> </object>
-      </div>
-      <br>
-      <h3 class = "center"> 9 Analytics</h3>
     </div>
-
   </div>
 </div>
 
-<main class="container">
-  <div class="bg-light p-5 rounded center">
-    <h2 >
-      Click the button below to check different species's pangenome analyses
-    </h2>
-    <br>
-    <div>
-      <a class="btn btn-lg btn-primary link_button" href="./Species_list.html" >Select a species &raquo;</a>
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1">
+      <!-- Leave this empty for the same effect as above -->
+    </div>
+
+    <div class="col-10">
+      <div class="card">
+        <div class="card-body center">
+          <main class="container">
+            <div class=" p-5 rounded center">
+              <h2>
+                Click the button below to check different species' pangenome analyses
+              </h2>
+              <br>
+              <div>
+                <a class="btn btn-lg btn-primary link_button" href="./Species_list.html" >Select a species &raquo;</a>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-1">
+      <!-- Leave this empty for the same effect as above -->
     </div>
   </div>
-</main>
+</div>
+
 
 
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>

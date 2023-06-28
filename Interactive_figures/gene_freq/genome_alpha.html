@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html, body, #chart {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body >
+<div id="chart"></div>
+
+<script src="../plotly/plotly.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species_alpha.json')
+            .then(response => response.json())
+            .then(data => {
+                const organisms = Object.keys(data);
+                const traces = [];
+                const visibility = [];
+
+                // Define a color list
+                const colorList = [
+                    'rgb(255, 165, 0)', // Orange for Lactobacillus
+                    'rgb(31, 119, 180)', // Blue
+                    'rgb(255, 0, 0)', // Red
+                    'rgb(0, 128, 0)', // Green
+                    // Add more colors as needed
+                ];
+
+                organisms.forEach((organism, index) => {
+                    const organismData = data[organism];
+
+                    const keys = Object.keys(organismData);
+                    const xValues = Object.values(organismData).map(item => item[0]);
+                    const yValues = Object.values(organismData).map(item => item[1]);
+
+                    const trace = {
+                        x: xValues,
+                        y: yValues,
+                        text: keys,
+                        mode: 'markers',
+                        marker: {
+                            size: 10,
+                            color: organism === 'Lactobacillus' ? colorList[0] : colorList[index % colorList.length], // Assign color based on organism
+                            opacity: 0.6
+                        },
+                        hovertemplate: '%{text}<br>\u03B1: %{x}<br>Genome Counts: %{y}<extra></extra>',
+                        name: organism, // Set the organism name for the legend
+                        legendgroup: organism, // Group bubbles in the legend
+                        visible: true // Initially set all traces as visible
+                    };
+
+                    traces.push(trace);
+                    visibility.push(true); // Initially set all traces as visible
+                });
+
+                const layout = {
+                    title: {
+                        text: '', // Remove the title
+                    },
+                    xaxis: {
+                        title: 'Openness (\u03B1)',
+                        showgrid: false,
+                        autorange: true,
+                        // range: [0, 1]
+                    },
+                    yaxis: {
+                        title: 'Genome counts',
+                        showgrid: false,
+                        autorange: false,
+                        range: [0, getMaxYValue(data) + 200],
+                    },
+                    showlegend: true, // Show the legend
+                    legend: {
+                        x: 0.5, // Set x-coordinate to center the legend
+                        y: 1.2, // Set y-coordinate to center the legend
+                        xanchor: 'center',
+                        yanchor: 'middle'
+                    },
+                    margin: {
+                        t: 10,
+                        r: 0,
+                        pad: 0
+                    },
+                };
+
+                const config = {
+                    displayModeBar: false,  // Enable the display of the mode bar
+                };
+
+                Plotly.newPlot('chart', traces, layout, config);
+
+                // Function to update the visibility of the traces based on checkbox selection
+                function updateVisibility(checkbox) {
+                    const checkboxID = checkbox.id;
+                    const index = parseInt(checkboxID.split('_')[1]);
+
+                    if (checkbox.checked) {
+                        Plotly.restyle('chart', { visible: true }, index);
+                    } else {
+                        Plotly.restyle('chart', { visible: 'legendonly' }, index);
+                    }
+                }
+
+                // Function to handle click events on the bubbles
+                function handleClick(event) {
+                    const point = event.points[0];
+                    const species = point.text;
+                    console.log(species)
+
+                    // Open a new page with the species as a query parameter
+                    window.open(`../../Pangenome_analyses_overview.html?species=${encodeURIComponent(species)}`, '_blank');
+                }
+
+                // Add event listener for click events on the chart
+                document.getElementById('chart').on('plotly_click', handleClick);
+
+            });
+
+        function getMaxYValue(data) {
+            let maxY = 0;
+            Object.values(data).forEach(organismData => {
+                const yValues = Object.values(organismData).map(item => item[1]);
+                const max = Math.max(...yValues);
+                if (max > maxY) {
+                    maxY = max;
+                }
+            });
+            return maxY;
+        }
+
+    });
+</script>
+</body>
+</html>
