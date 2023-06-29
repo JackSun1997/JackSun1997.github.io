@@ -34,6 +34,7 @@
                     const x_pan = data['x_pan'];
                     const avg_pan = data['avg_pan'];
                     const max_frequency_count = data['max_frequency_count'];
+                    const alpha = data['alpha'].toFixed(3)
 
                     // Create trace for core genome
                     var traceCore = {
@@ -108,7 +109,21 @@
                             xanchor: 'left',
                             y: 1.15,
                             yanchor: 'top'
-                        }
+                        },
+                        annotations: [
+                            {
+                                x: 0.058,
+                                y: 0.9,
+                                xref: 'paper',
+                                yref: 'paper',
+                                text: '\u03B1 = ' + alpha,
+                                showarrow: false,
+                                font: {
+                                    size: 14,
+                                    color: 'black'
+                                }
+                            }
+                        ],
                     };
                     const config = {
                         displayModeBar: false,  // Enable the display of the mode bar

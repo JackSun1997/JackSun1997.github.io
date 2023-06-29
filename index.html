@@ -107,11 +107,11 @@
 
   <br>
   <div class="row">
-    <div class="col-1">
+    <div class="col-3">
 
     </div>
 
-    <div class="col-10">
+    <div class="col-6">
       <div class="card"> <!-- This is the wrapper -->
         <div class="card-body"> <!-- The card-body class adds padding around your content -->
           <div class="row" style="height:70vh">
@@ -131,7 +131,7 @@
       </div>
     </div>
 
-    <div class="col-1">
+    <div class="col-3">
 
     </div>
   </div>
@@ -141,17 +141,17 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-1">
+    <div class="col-3">
       <!-- Leave this empty for the same effect as above -->
     </div>
 
-    <div class="col-10">
+    <div class="col-6">
       <div class="card">
         <div class="card-body center">
           <main class="container">
             <div class=" p-5 rounded center">
               <h2>
-                Click the button below to check different species' pangenome analyses
+                Click to explore pangenome analyses
               </h2>
               <br>
               <div>
@@ -163,7 +163,7 @@
       </div>
     </div>
 
-    <div class="col-1">
+    <div class="col-3">
       <!-- Leave this empty for the same effect as above -->
     </div>
   </div>
@@ -174,7 +174,9 @@
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species_list.json')
+  const sasToken = '?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-06-29T16:35:45Z&st=2023-06-29T08:35:45Z&spr=https&sig=97tFqE85sVLfsXgGkme1wCyIFncvrvqJXfngGkLdN4I%3D';
+
+  fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species_list.json' + sasToken)
           .then(response => response.json())
           .then(data => {
             const speciesCount = data.Species.length;

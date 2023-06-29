@@ -18,6 +18,7 @@
 <script src="../plotly/plotly.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/pankb_dimension.json')
             .then(response => response.json())
             .then(data => {
@@ -48,7 +49,7 @@
                     },
                     margin: {
                         t: 10,
-                        r: 0,
+                        r: 50,
                         pad: 0
                     },
                 };
