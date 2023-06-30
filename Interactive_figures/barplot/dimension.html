@@ -55,6 +55,12 @@
                         pointPadding: 0.1, // Adjust space between bars
                         groupPadding: 0.1, // Adjust space between bars
                         borderWidth: 0                }],
+                    tooltip: {
+                        pointFormat: 'Count: <b>{point.y}</b>', // Set tooltip text
+                        style: {
+                            fontSize: '12px' // Modify tooltip text font size
+                        }
+                    },
                     legend: {
                         enabled: false // Hide the legend
                     },
