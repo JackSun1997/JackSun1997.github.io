@@ -70,6 +70,14 @@
                     var layout = {
                         width: document.getElementById('plot').clientWidth,
                         height: document.getElementById('plot').clientHeight,
+                        autosize: true,
+                        margin: {
+                            l: 80,  // left margin
+                            r: 10,  // right margin
+                            b: 40, // bottom margin
+                            t: 80, // top margin
+                            pad: 0 // padding
+                        },
                         xaxis: {
                             title: 'Number of genomes',
                             titlefont: {
@@ -100,8 +108,10 @@
                         },
                         title: {
                             text: "Heap's law",
-                            font: { size: 16 },
-                            xref: 'paper',
+                            titlefont: {
+                                size: 16,
+                                family: 'Arial, sans-serif' // Use Arial font family
+                            },                            xref: 'paper',
                             x: 0.5
                         },
                         legend: {
@@ -113,7 +123,7 @@
                         annotations: [
                             {
                                 x: 0.058,
-                                y: 0.9,
+                                y: 0.85,
                                 xref: 'paper',
                                 yref: 'paper',
                                 text: '\u03B1 = ' + alpha,

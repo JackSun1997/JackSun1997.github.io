@@ -110,6 +110,13 @@
 
               const layout = {
                 autosize: true,
+                margin: {
+                  l: 80,  // left margin
+                  r: 60,  // right margin
+                  b: 60, // bottom margin
+                  t: 60, // top margin
+                  pad: 0 // padding
+                },
                 title: {
                   text: "Gene frequency",
                   titlefont: {
@@ -125,6 +132,7 @@
                 },
                 xaxis: {
                   title: 'Number of Genomes',
+                  x: 0.5,
                   showgrid: false,  // Remove x-axis grid lines
                   showline: true,  // Show x-axis line
                   titlefont: {
@@ -161,7 +169,7 @@
                 showlegend: true,  // Show legend
                 legend: {
                   x: 0.5,  // Position the legend at the center of the plot
-                  y: 1.1,
+                  y: 1,
                   xanchor: 'center',
                   yanchor: 'bottom',
                   orientation: 'h',  // Set legend orientation to horizontal

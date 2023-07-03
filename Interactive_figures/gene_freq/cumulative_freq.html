@@ -94,6 +94,13 @@
 
               const layout = {
                 autosize: true,
+                margin: {
+                  l: 80,  // left margin
+                  r: 60,  // right margin
+                  b: 40, // bottom margin
+                  t: 80, // top margin
+                  pad: 0 // padding
+                },
                 title: {
                   text: "Cumulative gene distribution",
                   titlefont: {
@@ -145,7 +152,7 @@
                 showlegend: true,
                 legend: {
                   x: 0.5,  // Position the legend at the center of the plot
-                  y: 1.1,
+                  y: 1,
                   xanchor: 'center',
                   yanchor: 'bottom',
                   orientation: 'h',  // Set legend orientation to horizontal

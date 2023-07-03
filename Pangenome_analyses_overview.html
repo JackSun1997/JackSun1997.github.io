@@ -22,17 +22,15 @@
       margin-right: 0;
     }
 
-
-    .figure-container_above {
-      height: 450px; /* This is 50% of the viewport height */
-      padding-bottom: 56.25%;
-      margin-bottom: 0;
-      margin-top: 0;
+    .custom-padding {
+      padding-left: 30px;
+      padding-right: 20px;
     }
 
+    .figure-container_above,
     .figure-container_below {
-      height: 450px; /* This is 50% of the viewport height */
-      padding-bottom: 56.25%;
+      height: 42.5vh; /* This is 50% of the viewport height */
+      padding-bottom: 0%;
       margin-bottom: 0;
       margin-top: 0;
     }
@@ -51,22 +49,10 @@
       /* Add other styles as needed */
     }
 
-    .col-2 {
-      flex: 0 0 12.5% !important;
-      max-width: 12.5% !important;
-      padding:0;
-    }
-
-    .col-10 {
-      flex: 0 0 87.5% !important;
-      max-width: 87.5% !important;
-
-    }
-
     .navbar_fixed {
       position: fixed;
       height: 100%;
-      width: 12.5% !important;
+      width: 16.666667%;
     }
 
     .navbar_fixed .btn {
@@ -135,7 +121,6 @@
       justify-content: center;
       align-items: center; /* center the text */
       opacity: 1;
-      text
     }
 
 
@@ -188,11 +173,16 @@
 
 <div class="vh-100">
   <div class="row">
+
+<!--    <div class="col-1">-->
+<!--    </div>-->
+
     <div class="col-2">
       <div class="flex-shrink-0 p-3 bg-light navbar_fixed">
         <a id = 'Pangenome_analyses' class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-center">
           <span class="fs-5 fw-semibold">Pangenome analyses</span>
         </a>
+
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
             <a id = 'Overview' class="btn  align-items-center " role="button">
@@ -226,10 +216,25 @@
           </li>
           -->
         </ul>
+
+        <!-- Card -->
+        <div class="card" id="speciesCard">
+          <div class="card-body text-left">
+            <p id="species"></p>
+            <p id="numGenome"></p>
+            <p id="core"></p>
+            <p id="accessory"></p>
+            <p id="rare"></p>
+            <p id="openness"></p>
+          </div>
+        </div>
+
+
       </div>
     </div>
 
-    <div class="col-10">
+
+    <div class="col-10 custom-padding">
       <div class="container-fluid">
         <div class="row row-spacing border-container gx-0 gx-md-2">
           <h2 class="text-center">Heap's law and gene frequency</h2>
@@ -242,10 +247,10 @@
             </div>
           </div>
           <div class="col-12 col-md-6">
-            <div class="figure-container_below responsive-iframe">
+            <div class="figure-container_above responsive-iframe">
               <iframe style="border:0;" id="Cumulative_Frequency"></iframe>
             </div>
-            <div class="figure-container_above responsive-iframe">
+            <div class="figure-container_below responsive-iframe">
               <iframe style="border:0;" id="Gene_frequency"></iframe>
             </div>
           </div>
@@ -288,6 +293,10 @@
         <br>
       </div>
     </div>
+
+<!--    <div class="col-1">-->
+<!--    </div>-->
+
   </div>
 </div>
 
@@ -336,6 +345,29 @@
       }
     }, 2000);  // 4000 milliseconds = 4 seconds
   });
+
+  // Existing JavaScript code
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Existing DOMContentLoaded code
+      const urlParams = new URLSearchParams(window.location.search);
+      const species = urlParams.get('species');
+
+      fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/info_panel.json')
+              .then(response => response.json())
+              .then(speciesData => {
+
+                // Select the species to show in the card
+                if (speciesData) {
+                  document.getElementById('species').innerHTML = '<b>Species:</b><br>' + speciesData.Species;
+                  document.getElementById('numGenome').innerHTML = '<b>Number of genome:</b><br>' + speciesData.Number_of_genome;
+                  document.getElementById('core').innerHTML = '<b>Core:</b><br>' + speciesData.Gene_class[0];
+                  document.getElementById('accessory').innerHTML = '<b>Accessory:</b><br>' + speciesData.Gene_class[1];
+                  document.getElementById('rare').innerHTML= '<b>Rare:</b><br>' + speciesData.Gene_class[2];
+                  document.getElementById('openness').innerHTML = '<b>Openness:</b><br>' + speciesData.Openness;
+                }
+              });
+    });
 
 
 </script>

@@ -11,37 +11,29 @@
       padding: 0;
       overflow: hidden;
     }
-    .xhover {
-      position: absolute;
-      background-color: #eee;
-      border: 1px solid #bbb;
-      padding: 5px;
-      z-index: 1000;
-    }
+
   </style>
 </head>
 <body>
-<div id="chart-container">
-  <div id="plot"></div>
-</div>
+<div id="plot"></div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', async function() {
+  function loadJSONAndCreatePlot() {
     const urlParams = new URLSearchParams(window.location.search);
     const species = urlParams.get('species');
 
     let jsondata;
     fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/COG_distribution.json')
-            .then(function(response) {
+            .then(function (response) {
               return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
               jsondata = json;
 
               const categories = jsondata.categories;
-              const shortCategories = categories.map(function(category) {
+              const shortCategories = categories.map(function (category) {
                 if (category.length > 3) {
-                  return category.substring(0, 3) ;
+                  return category.substring(0, 3);
                 }
                 return category;
               });
@@ -59,7 +51,7 @@
                 marker: {
                   color: 'purple',
                   opacity: 0.8,
-                  size:12
+                  size: 12
                 }
               };
 
@@ -73,7 +65,7 @@
                 marker: {
                   color: 'orange',
                   opacity: 0.8,
-                  size:12
+                  size: 12
                 }
               };
 
@@ -87,7 +79,7 @@
                 marker: {
                   color: 'green',
                   opacity: 0.8,
-                  size:12
+                  size: 12
                 }
               };
 
@@ -96,6 +88,13 @@
               const layout = {
                 barmode: 'column',
                 autosize: true,
+                margin: {
+                  l: 80,  // left margin
+                  r: 10,  // right margin
+                  b: 60, // bottom margin
+                  t: 60, // top margin
+                  pad: 0 // padding
+                },
                 title: {
                   text: "Gene annotation frequency",
                   titlefont: {
@@ -140,7 +139,7 @@
                 },
                 legend: {
                   x: 0.5,
-                  y: 1.1,
+                  y: 1,
                   font: {
                     family: 'Arial, sans-serif',
                     size: 12,
@@ -168,10 +167,10 @@
                 displayModeBar: false,
               };
 
-              Plotly.newPlot('plot', data, layout, config).then(function() {
+              Plotly.newPlot('plot', data, layout, config).then(function () {
                 const xTicks = document.querySelectorAll('.xaxislayer-above g.xtick');
-                xTicks.forEach(function(tick, index) {
-                  tick.onmouseover = function(event) {
+                xTicks.forEach(function (tick, index) {
+                  tick.onmouseover = function (event) {
                     let xhover = document.getElementById('xhover');
                     if (xhover) {
                       xhover.parentNode.removeChild(xhover);
@@ -184,7 +183,7 @@
                     xhover.innerText = categories[index];
                     document.body.appendChild(xhover);
                   };
-                  tick.onmouseout = function() {
+                  tick.onmouseout = function () {
                     let xhover = document.getElementById('xhover');
                     if (xhover) {
                       xhover.parentNode.removeChild(xhover);
@@ -193,6 +192,10 @@
                 });
               });
             });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    loadJSONAndCreatePlot();
   });
 </script>
 
