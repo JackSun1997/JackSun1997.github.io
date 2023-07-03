@@ -229,7 +229,6 @@
           </div>
         </div>
 
-
       </div>
     </div>
 
@@ -337,6 +336,21 @@
     const heatmap_target = document.getElementById('heatmap_target');
     heatmap_target.src = './Interactive_figures/hotmap/demo/target_gene.html?species=' + species;
 
+    fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/info_panel.json')
+            .then(response => response.json())
+            .then(speciesData => {
+
+              // Select the species to show in the card
+              if (speciesData) {
+                document.getElementById('species').innerHTML = '<b>Species:</b><br>' + speciesData.Species;
+                document.getElementById('numGenome').innerHTML = '<b>Number of genome:</b><br>' + speciesData.Number_of_genome;
+                document.getElementById('core').innerHTML = '<b>Core:</b><br>' + speciesData.Gene_class[0];
+                document.getElementById('accessory').innerHTML = '<b>Accessory:</b><br>' + speciesData.Gene_class[1];
+                document.getElementById('rare').innerHTML= '<b>Rare:</b><br>' + speciesData.Gene_class[2];
+                document.getElementById('openness').innerHTML = '<b>Openness:</b><br>' + speciesData.Openness;
+              }
+            });
+
     // Remove overlay and show main content after 4 seconds
     setTimeout(function() {
       var overlay = document.getElementById('loading-overlay');
@@ -344,30 +358,10 @@
         overlay.parentNode.removeChild(overlay);  // remove the overlay from DOM
       }
     }, 2000);  // 4000 milliseconds = 4 seconds
+
   });
 
-  // Existing JavaScript code
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Existing DOMContentLoaded code
-      const urlParams = new URLSearchParams(window.location.search);
-      const species = urlParams.get('species');
-
-      fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/info_panel.json')
-              .then(response => response.json())
-              .then(speciesData => {
-
-                // Select the species to show in the card
-                if (speciesData) {
-                  document.getElementById('species').innerHTML = '<b>Species:</b><br>' + speciesData.Species;
-                  document.getElementById('numGenome').innerHTML = '<b>Number of genome:</b><br>' + speciesData.Number_of_genome;
-                  document.getElementById('core').innerHTML = '<b>Core:</b><br>' + speciesData.Gene_class[0];
-                  document.getElementById('accessory').innerHTML = '<b>Accessory:</b><br>' + speciesData.Gene_class[1];
-                  document.getElementById('rare').innerHTML= '<b>Rare:</b><br>' + speciesData.Gene_class[2];
-                  document.getElementById('openness').innerHTML = '<b>Openness:</b><br>' + speciesData.Openness;
-                }
-              });
-    });
 
 
 </script>

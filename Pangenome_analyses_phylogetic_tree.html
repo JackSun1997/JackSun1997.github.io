@@ -29,22 +29,22 @@
             }
         }
 
-        .col-2 {
-            flex: 0 0 12.5% !important;
-            max-width: 12.5% !important;
-            padding:0;
-        }
+        /*.col-2 {*/
+        /*    flex: 0 0 12.5% !important;*/
+        /*    max-width: 12.5% !important;*/
+        /*    padding:0;*/
+        /*}*/
 
-        .col-10 {
-            flex: 0 0 87.5% !important;
-            max-width: 87.5% !important;
+        /*.col-10 {*/
+        /*    flex: 0 0 87.5% !important;*/
+        /*    max-width: 87.5% !important;*/
 
-        }
+        /*}*/
 
         .navbar_fixed {
             position: fixed;
             height: 100%;
-            width: 12.5% !important;
+            width: 16.666667%;
         }
 
         .navbar_fixed .btn {
@@ -63,6 +63,13 @@
 
         .link_not_activate{
             color: grey !important;
+        }
+
+        .iframe_center {
+            height: 100vh;
+            width: 100%;
+            border: none;
+            padding-left: 20px;
         }
 
     </style>
@@ -143,12 +150,25 @@
                     </li>
                     -->
                 </ul>
+
+                <!-- Card -->
+                <div class="card" id="speciesCard">
+                    <div class="card-body text-left">
+                        <p id="species"></p>
+                        <p id="numGenome"></p>
+                        <p id="core"></p>
+                        <p id="accessory"></p>
+                        <p id="rare"></p>
+                        <p id="openness"></p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <div class="col-10">
             <div class = "d-flex align-items-center justify-content-center">
-                <iframe id = 'Phylotree' class = 'iframe_center' width="1500" height="1800" ></iframe>
+                <iframe id = 'Phylotree' class = 'iframe_center' height= '100%' ></iframe>
             </div>
         </div>
     </div>
@@ -179,6 +199,20 @@
         const Phylotree = document.getElementById('Phylotree');
         Phylotree.src = './Interactive_figures/phylotree.js/index.html?species=' + species;
 
+        fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/info_panel.json')
+            .then(response => response.json())
+            .then(speciesData => {
+
+                // Select the species to show in the card
+                if (speciesData) {
+                    document.getElementById('species').innerHTML = '<b>Species:</b><br>' + speciesData.Species;
+                    document.getElementById('numGenome').innerHTML = '<b>Number of genome:</b><br>' + speciesData.Number_of_genome;
+                    document.getElementById('core').innerHTML = '<b>Core:</b><br>' + speciesData.Gene_class[0];
+                    document.getElementById('accessory').innerHTML = '<b>Accessory:</b><br>' + speciesData.Gene_class[1];
+                    document.getElementById('rare').innerHTML= '<b>Rare:</b><br>' + speciesData.Gene_class[2];
+                    document.getElementById('openness').innerHTML = '<b>Openness:</b><br>' + speciesData.Openness;
+                }
+            });
 
     });
 </script>

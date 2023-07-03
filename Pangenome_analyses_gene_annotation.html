@@ -49,7 +49,7 @@
     .navbar_fixed {
       position: fixed;
       height: 100%;
-      width: 12.5% !important;
+      width: 16.666667%;
     }
 
     .navbar_fixed .btn {
@@ -79,6 +79,8 @@
       overflow-x: hidden !important;
       overflow-y: auto !important;
       max-height: 80vh;  /* adjust based on your needs */
+      padding-left: 50px;  /* adjust as needed */
+      padding-right: 20px;
     }
 
     tr,
@@ -225,6 +227,19 @@
           </li>
           -->
         </ul>
+
+        <!-- Card -->
+        <div class="card" id="speciesCard">
+          <div class="card-body text-left">
+            <p id="species"></p>
+            <p id="numGenome"></p>
+            <p id="core"></p>
+            <p id="accessory"></p>
+            <p id="rare"></p>
+            <p id="openness"></p>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -358,10 +373,23 @@
     const Phylogenetic_tree = document.getElementById('Phylogenetic_tree');
     Phylogenetic_tree.href = './Pangenome_analyses_phylogetic_tree.html?species=' + species;
 
-    // set src for different elements
-    const Gene_function_table = document.getElementById('Gene_function_table');
-    Gene_function_table.src = './Gene_function/All.html?species=' + species;
+    // // set src for different elements
+    // const Gene_function_table = document.getElementById('Gene_function_table');
+    // Gene_function_table.src = './Gene_function/All.html?species=' + species;
 
+    fetch('https://pankb.blob.core.windows.net/data/PanKB/web_data/species/' + species + '/info_panel.json')
+            .then(response => response.json())
+            .then(speciesData => {
+              // Select the species to show in the card
+              if (speciesData) {
+                document.getElementById('species').innerHTML = '<b>Species:</b><br>' + speciesData.Species;
+                document.getElementById('numGenome').innerHTML = '<b>Number of genome:</b><br>' + speciesData.Number_of_genome;
+                document.getElementById('core').innerHTML = '<b>Core:</b><br>' + speciesData.Gene_class[0];
+                document.getElementById('accessory').innerHTML = '<b>Accessory:</b><br>' + speciesData.Gene_class[1];
+                document.getElementById('rare').innerHTML= '<b>Rare:</b><br>' + speciesData.Gene_class[2];
+                document.getElementById('openness').innerHTML = '<b>Openness:</b><br>' + speciesData.Openness;
+              }
+            });
   });
 </script>
 
