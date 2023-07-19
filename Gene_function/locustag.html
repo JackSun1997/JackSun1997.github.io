@@ -35,10 +35,6 @@
             text-align: center;
         }
 
-        .table-container {
-            width: 100%;
-            text-align: center;
-        }
 
         .table-container table {
             margin-left: auto;
@@ -60,8 +56,10 @@
         }
 
         .dataTables_wrapper .dataTables_filter {
-            display: none;
+            display: block;
+
         }
+
 
         .dataTables_wrapper thead th {
             text-align: center;
@@ -101,43 +99,70 @@
             justify-content: center;
             margin-top: 15px !important;
         }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* This adds a shadow effect */
+            transition: 0.3s; /* This adds a transition effect */
+            border-radius: 5px; /* This makes the corners round (5px round corner) */
+        }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-example">
 
 <br>
 
-<h2 class="text-center">This page is to show more details about genes in pangenome analyses. Will add more later...</h2>
+<h2 id = 'gene_table_title' style = 'text-align: center';></h2>
+
 
 <div class="table_padding overflow-auto">
-    <div style="width:80%;">
-        <table id="example" class="table table-hover overflow-auto" style="width:100%; table-layout: fixed;">
-            <thead>
-            <tr>
-                <th class="text-center align-middle">Locus Tag</th>
-                <th class="text-center align-middle">Genome ID</th>
-                <th class="text-center align-middle">Prokka Annotation</th>
-                <th class="text-center align-middle">Start Position</th>
-                <th class="text-center align-middle">End Position</th>
-                <th class="text-center align-middle">Nucleotide Seq</th>
-                <th class="text-center align-middle">Amino Acid Seq</th>
-            </tr>
-            </thead>
+    <div style="width:90%;">
+        <div class="card"> <!-- This is the wrapper -->
+            <div class="card-body"> <!-- The card-body class adds padding around your content -->
+                <table id="gene_table" class="table table-hover overflow-auto" style="width:100%; table-layout: fixed;">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">Locus Tag</th>
+                        <th class="text-center align-middle">Genome ID</th>
+                        <th class="text-center align-middle">Prokka Annotation</th>
+                        <th class="text-center align-middle">Start Position</th>
+                        <th class="text-center align-middle">End Position</th>
+                        <th class="text-center align-middle">Nucleotide Seq</th>
+                        <th class="text-center align-middle">Amino Acid Seq</th>
+                    </tr>
+                    </thead>
 
-            <tbody class="text-center align-middle" id="tbody">
+                    <tbody class="text-center align-middle" id="tbody">
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
+
+<br>
+
+    <h2 id = 'MSA_figure' style = 'text-align: center';></h2>
+
+<div class="table_padding overflow-auto">
+    <div style="width:90%;">
+        <div class="card"> <!-- This is the wrapper -->
+            <div class="card-body"> <!-- The card-body class adds padding around your content -->
+                <iframe id = 'MSA' style="width: 100%; height: 100vh;padding-top: 20px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 
 <!-- Datatable -->
 <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const species = urlParams.get('species');
-        const gene = urlParams.get('gene');
+    const urlParams = new URLSearchParams(window.location.search);
+    const species = urlParams.get('species');
+    const gene = urlParams.get('gene');
 
+    document.addEventListener('DOMContentLoaded', async function() {
         try {
             const data = await $.ajax({
                 'url': 'https://pankb.blob.core.windows.net/data/PanKB/web_data/species/'+ species + '/gene_locustag/' + gene + '.json',
@@ -146,11 +171,16 @@
 
             var geneData = data; // Convert the data object to an array for DataTables
 
-            let table = $('#example').DataTable({
+            let table = $('#gene_table').DataTable({
                 data: geneData,
                 columns: [
                     { data: 'Locus_Tag' },
-                    { data: 'Genome_ID' },
+                    {
+                        data: 'Genome_ID',
+                        render: function(data, type, row) {
+                                return '<a href="./genome_page/genome_page.html?species=' + encodeURIComponent(species) + '&' + 'genome_id=' + encodeURIComponent(data) + '"target="_blank">' + data + '</a>';
+                            }
+                    },
                     { data: 'Prokka_Annotation' },
                     { data: 'Start_Position' },
                     { data: 'End_Position' },
@@ -197,8 +227,13 @@
             table.draw(false); // Redraw the DataTable to readjust the layout
         });
 
-
     });
+
+    document.getElementById('gene_table_title').innerHTML= 'Gene: ' + '<b>' +  gene  + '</b>'
+    document.getElementById('MSA_figure').innerHTML= 'Multiple sequence alignment of ' + '<b>' +  gene  + '</b>'
+
+    const MSA = document.getElementById('MSA');
+    MSA.src = '../Interactive_figures/msa/MSA.html?species=' + species + '&' + 'gene=' + gene;
 </script>
 </body>
 </html>
